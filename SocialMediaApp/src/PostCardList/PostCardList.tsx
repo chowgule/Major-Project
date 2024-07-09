@@ -22,7 +22,7 @@ const PostCardList = () => {
   const [posts, setPosts] = useState<PostType[]>([]);
 
   useEffect(() => {
-    console.log(import.meta.env.REACT_APP_APP_ID);
+    console.log(import.meta.env.VITE_APP_ID);
 
     axios
       .get("https://dummyapi.io/data/v1/post", {
