@@ -1,14 +1,12 @@
 import "./App.css";
-import Post from "./components/Post";
+import MainContainer from "./MainContainer/MainContainer";
+import Navbar from "./Navbar/Navbar";
 
 function App() {
   return (
     <>
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
+      <Navbar />
+      <MainContainer />
     </>
   );
 }
