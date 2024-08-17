@@ -1,7 +1,7 @@
+import { StarIcon } from "@chakra-ui/icons";
 import {
   Avatar,
   Box,
-  Button,
   Card,
   CardBody,
   CardFooter,
@@ -13,8 +13,10 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import { BiLike } from "react-icons/bi";
+import { createIcon } from "@chakra-ui/icon";
+
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { useState } from "react";
 
 interface PostProps {
   authorFirstName: string;
@@ -23,6 +25,19 @@ interface PostProps {
 }
 
 const Post: React.FC<PostProps> = ({ authorFirstName, image, content }) => {
+  const OutlinedStarIcon = createIcon({
+    displayName: "OutlinedStarIcon",
+    viewBox: "0 0 24 24",
+    path: (
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+      />
+    ),
+  });
+  const [isLiked, setIsLiked] = useState(false);
   return (
     <div>
       <Card maxW="md">
@@ -61,9 +76,11 @@ const Post: React.FC<PostProps> = ({ authorFirstName, image, content }) => {
             },
           }}
         >
-          <Button flex="1" variant="ghost" leftIcon={<BiLike />}>
-            Like
-          </Button>
+          {isLiked ? (
+            <OutlinedStarIcon onClick={() => setIsLiked(!isLiked)} />
+          ) : (
+            <StarIcon color="red" onClick={() => setIsLiked(!isLiked)} />
+          )}
         </CardFooter>
       </Card>
     </div>

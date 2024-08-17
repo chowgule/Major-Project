@@ -1,19 +1,18 @@
-import { Grid, GridItem, Box, Text } from "@chakra-ui/react";
+import { Grid, GridItem, Box } from "@chakra-ui/react";
 import PostCardList from "../PostCardList/PostCardList";
+import UserList from "../UserList/UserList";
 
 const MainContainer = () => {
   return (
-    <Box p={4} justifyContent="center">
+    <Box display="flex">
       <Grid
         templateColumns="auto 1fr"
         gap={4}
-        alignItems="center"
+        alignItems="start"
         justifyContent="center"
       >
         <GridItem>
-          <Text fontSize="xl" fontWeight="bold">
-            1
-          </Text>
+          <UserList />
         </GridItem>
         <GridItem>
           <PostCardList />
