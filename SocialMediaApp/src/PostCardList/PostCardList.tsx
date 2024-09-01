@@ -1,49 +1,65 @@
-import { useEffect, useState } from "react";
-import Post from "..//components/Post";
-import axios from "axios";
-
-interface PostType {
-  id: string;
-  image: string;
-  likes: number;
-  tags: string[];
-  text: string;
-  publishDate: string;
-  owner: {
-    id: string;
-    title: string;
-    firstName: string;
-    lastName: string;
-    picture: string;
-  };
-}
+import { usePostsContext } from "../providers/PostsProvider";
+import Post from "../components/Post";
+import React from "react";
 
 const PostCardList = () => {
-  const [posts, setPosts] = useState<PostType[]>([]);
+  const { products, setProducts } = usePostsContext();
 
-  useEffect(() => {
-    console.log(import.meta.env.VITE_APP_ID);
-
-    axios
-      .get("https://dummyapi.io/data/v1/post", {
-        headers: { "app-id": import.meta.env.VITE_APP_ID },
-      })
-      .then((response) => {
-        const responseObject: { data: PostType[] } = response.data;
-        setPosts([...responseObject.data]);
-      });
-  }, []);
-
-  return posts.length === 0
+  return products.length === 0
     ? "loading..."
-    : posts.map((post) => (
+    : products.map((product) => (
         <Post
-          key={post.id}
-          content={post.text}
-          image={post.image}
-          authorFirstName={post.owner.firstName}
+          key={product.id}
+          content={product.title}
+          image={product.image}
+          authorFirstName={product.category} // Temporarily using category as an author placeholder
         />
       ));
 };
 
-export default PostCardList;
+export default React.memo(PostCardList);
+
+// * prvious code
+
+// import { useContext, useEffect } from "react";
+// import Post from "../components/Post";
+// import axios from "axios";
+// import PostsContext from "../providers/PostsProvider";
+
+// interface ProductType {
+//   id: number;
+//   title: string;
+//   price: number;
+//   description: string;
+//   image: string;
+//   category: string;
+// }
+
+// const PostCardList = () => {
+//   // const [products, setProducts] = useState<ProductType[]>([]);
+//   const { products, setProducts } = useContext(PostsContext);
+
+//   useEffect(() => {
+//     axios
+//       .get("https://fakestoreapi.com/products")
+//       .then((response) => {
+//         setProducts(response.data);
+//       })
+//       .catch((error) => {
+//         console.error("Error fetching products:", error);
+//       });
+//   }, []);
+
+//   return products.length === 0
+//     ? "loading..."
+//     : products.map((product) => (
+//         <Post
+//           key={product.id}
+//           content={product.title}
+//           image={product.image}
+//           authorFirstName={product.category} // Temporarily using category as an author placeholder
+//         />
+//       ));
+// };
+
+// export default PostCardList;

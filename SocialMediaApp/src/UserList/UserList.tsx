@@ -1,5 +1,4 @@
 import { List, ListItem } from "@chakra-ui/react";
-import axios from "axios";
 import { useEffect, useState } from "react";
 
 interface UserType {
@@ -14,17 +13,26 @@ const UserList = () => {
   const [users, setUsers] = useState<UserType[]>([]);
 
   useEffect(() => {
-    axios
-      .get("https://dummyapi.io/data/v1/user", {
-        headers: { "app-id": import.meta.env.VITE_APP_ID },
-      })
-      .then((response) => {
-        const responseObject: { data: UserType[] } = response.data;
-        setUsers([...responseObject.data]);
-      })
-      .catch((error) => {
-        console.error("Error fetching users:", error);
-      });
+    // Placeholder users
+    const placeholderUsers: UserType[] = [
+      {
+        id: "1",
+        title: "Mr.",
+        firstName: "John",
+        lastName: "Doe",
+        picture: "https://randomuser.me/api/portraits/men/1.jpg",
+      },
+      {
+        id: "2",
+        title: "Ms.",
+        firstName: "Jane",
+        lastName: "Doe",
+        picture: "https://randomuser.me/api/portraits/women/1.jpg",
+      },
+      // Add more users as needed
+    ];
+
+    setUsers(placeholderUsers);
   }, []);
 
   return users.length === 0 ? (
@@ -34,7 +42,6 @@ const UserList = () => {
       <List spacing={3}>
         {users.map((user) => (
           <ListItem key={user.id} id={`user-${user.id}`}>
-            {/* <ListIcon as={MdCheckCircle} color="green.500" /> */}
             <img
               src={user.picture}
               alt={`${user.firstName} ${user.lastName}`}
